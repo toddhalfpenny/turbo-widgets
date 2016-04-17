@@ -6,11 +6,11 @@ Requires at least: 2.8
 Tested up to: 4.5
 Stable tag: 1.0.1
 
-The easiest way to add Widgets or Sidebars to Posts and Pages through the WYSIWYG.
+The easiest way to add Widgets to Posts and Pages through the WYSIWYG or shortcodes.
 
 == Description ==
 
-The easiest way to add Widgets or Sidebars to Posts and Pages through the WYSIWYG.
+The easiest way to add Widgets to Posts and Pages through the WYSIWYG or shortcodes.
 
 What can you do with this plugin?
 
