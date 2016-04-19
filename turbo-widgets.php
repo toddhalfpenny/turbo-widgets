@@ -130,7 +130,7 @@ function register_turbo_tinymce_button( $buttons ) {
 
 // Load the TinyMCE plugin.
 function add_turbo_tinymce_plugin( $plugin_array ) {
-	$plugin_url = plugins_url( '/turbo-widgets/js/turbo_editor_plugin.js' );
+	$plugin_url = plugins_url( 'js/turbo_editor_plugin.js', __FILE__  );
 	$plugin_array['turboplugin'] = $plugin_url;
 	return $plugin_array;
 }
@@ -154,7 +154,7 @@ function turbo_admin_css() {
 	?>
 	<style>
 	.wp_themeSkin span.mce_turboplugin, .mce-i-turboplugin {
-		background: url( '<?php echo esc_url( plugins_url( '/turbo-widgets/images/turbo_tiny_mce.png' ) ); ?>' ) no-repeat 0 -20px !important;
+		background: url( '<?php echo esc_url( plugins_url( 'images/turbo_tiny_mce.png', __FILE__  ) ); ?>' ) no-repeat 0 -20px !important;
 	}
 
 	span.mce_turboplugin:hover,  .mce-i-turboplugin:hover {
