@@ -31,9 +31,6 @@ What can you do with this plugin?
 
 Absolutely. Check it out [on our official site](http://turbowidgets.net/docs).
 
-= Can I have more than one defined sidebar area =
-
-
 == Screenshots ==
 
 1. Add A Widget button available in the standard WordPress editor
