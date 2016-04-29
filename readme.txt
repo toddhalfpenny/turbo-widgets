@@ -3,8 +3,8 @@ Contributors: toddhalfpenny
 Donate link: http://turbowidgets.net/donate
 Tags: widgets, sidebar, pages, post, shortcode, inline, editor, tinymce
 Requires at least: 2.8
-Tested up to: 4.5
-Stable tag: 1.0.1
+Tested up to: 4.5.1
+Stable tag: 1.0.2
 
 The easiest way to add Widgets to Posts and Pages through the WYSIWYG or shortcodes.
 
@@ -38,6 +38,10 @@ Absolutely. Check it out [on our official site](http://turbowidgets.net/docs).
 
 
 == Changelog ==
+
+= 1.0.2 =
+
+Fix issue where image edit toolbar was being disabled.
 
 = 1.0.1 =
 

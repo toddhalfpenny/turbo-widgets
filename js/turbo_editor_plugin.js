@@ -31,8 +31,20 @@
 
 
             ed.on( 'click', function( e ) {
-                // Prevent the standard toolbar for images showing
-                return false;
+                if ( e.target.nodeName == 'IMG' && e.target.className.indexOf('turbo_widget') > -1 ) {;
+                    console.log(e);
+                    return false;
+                }
+            } );
+
+             ed.on( 'wptoolbar', function( event ) {
+                // hide the toolbar that pops up for WordPress images
+                if (event.element.className.includes("turbo_widget") && event.toolbar) {
+                    window.setTimeout( function() {
+                        event.toolbar.hide();
+                    }, 0 );
+                    return false;
+                }
             } );
         },
         _do_turbo : function(co) {
