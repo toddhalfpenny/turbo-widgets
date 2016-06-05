@@ -6,7 +6,7 @@
 	Plugin URI: http://turbowidgets.net
 	Description: The easiest way to add Widgets to Posts and Pages through the WYSIWYG or shortcodes.
 	Author: Datamad Ltd, Todd Halfpenny
-	Version: 1.0.2
+	Version: 1.0.3
 	Author URI: http://turbowidgets.net
  */
 

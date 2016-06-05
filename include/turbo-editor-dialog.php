@@ -24,13 +24,16 @@ function turbo_list_all_widgets() {
 	echo '<select id="widget_select"' . esc_html( $select_disabled ) .'><option value="Null"></option>';
 	foreach ( $sort as $i => $value ) {
 		$callback = $value['callback'];
-		$turbo_object = $callback[0];
-		$select_value = $turbo_object->id_base;
-		$selected = '';
-		if ( $select_value == $turbo_widget_name ) {
-			$selected = 'SELECTED';
+
+		if ( is_array( $callback ) ) {
+			$turbo_object = $callback[0];
+			$select_value = $turbo_object->id_base;
+			$selected = '';
+			if ( $select_value == $turbo_widget_name ) {
+				$selected = 'SELECTED';
+			}
+			echo '<option value="' . esc_html( $select_value ) . '" '. esc_html( $selected ) . '>' . esc_html( $value['name'] ) . '</option>';
 		}
-		echo '<option value="' . esc_html( $select_value ) . '" '. esc_html( $selected ) . '>' . esc_html( $value['name'] ) . '</option>';
 	}
 	echo '</select>';
 
@@ -38,13 +41,15 @@ function turbo_list_all_widgets() {
 	echo '<div class="isNull"></div>';
 	foreach ( $sort as $i => $value ) {
 		$callback = $value['callback'];
-		$turbo_object = $callback[0];
-		$form_class = $turbo_object->id_base;
-		echo '<div class="is' . esc_html( $form_class ) . '">';
-		echo '<input type="hidden" id="widget-prefix" name="widget-prefix" value="' . esc_html( $form_class ) . '" />';
-		echo '<input type="hidden" id="obj-class" name="obj-class" value="' . esc_html( get_class( $turbo_object ) ) . '" />';
-		$widget = new $turbo_object;
-		$widget->form( array() );
+		if ( is_array( $callback ) ) {
+			$turbo_object = $callback[0];
+			$form_class = $turbo_object->id_base;
+			echo '<div class="is' . esc_html( $form_class ) . '">';
+			echo '<input type="hidden" id="widget-prefix" name="widget-prefix" value="' . esc_html( $form_class ) . '" />';
+			echo '<input type="hidden" id="obj-class" name="obj-class" value="' . esc_html( get_class( $turbo_object ) ) . '" />';
+			$widget = new $turbo_object;
+			$widget->form( array() );
+		}
 		echo '</div>';
 	}
 }
@@ -102,6 +107,6 @@ function turbo_list_all_widgets() {
 		</p>
 		</form>
 		<hr />
-		<h3>Rate this plugin</h3><p><a href="http://wordpress.org/support/view/plugin-reviews/turbo-swidgets?rate=5#postform" title="Rate me" target="_BLANK">If you like me, please rate me</a>... or maybe even <a href="http://turbo-widgets.net/donate/" title="Show you love">donate to the author</a>...</p> <p>or perhaps just spread the good word <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wordpress.org/extend/plugins/turbo-widgets/" data-text="Using the Torbo Widgets WordPress plugin and lovin' it" data-via="toddhalfpenny" data-count="none">Tweet</a>
+		<h3>Rate this plugin</h3><p><a href="http://wordpress.org/support/view/plugin-reviews/turbo-swidgets?rate=5#postform" title="Rate me" target="_BLANK">If you like me, please rate me</a>... or maybe even <a href="http://turbo-widgets.net/donate/" title="Show you love">donate to the author</a>...</p> <p>or perhaps just spread the good word <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wordpress.org/extend/plugins/turbo-widgets/" data-text="Using the Turbo Widgets WordPress plugin and lovin' it" data-via="toddhalfpenny" data-count="none">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></p>
 </div>
