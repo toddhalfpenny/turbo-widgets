@@ -25,33 +25,62 @@ function turbo_list_all_widgets() {
 	foreach ( $sort as $i => $value ) {
 		$callback = $value['callback'];
 
+		$turbo_object = $callback[0];
 		if ( is_array( $callback ) ) {
 			$turbo_object = $callback[0];
-			$select_value = $turbo_object->id_base;
-			$selected = '';
-			if ( $select_value == $turbo_widget_name ) {
-				$selected = 'SELECTED';
+			if ( isset( $turbo_object->id_base ) ) {
+				$select_value = $turbo_object->id_base;
+			} else {
+				$select_value = $value['id'];
 			}
-			echo '<option value="' . esc_html( $select_value ) . '" '. esc_html( $selected ) . '>' . esc_html( $value['name'] ) . '</option>';
+		} else {
+			$select_value = $value['id'];
 		}
+		$selected = '';
+		if ( $select_value == $turbo_widget_name ) {
+			$selected = 'SELECTED';
+		}
+		echo '<option value="' . esc_html( $select_value ) . '" '. esc_html( $selected ) . '>' . esc_html( $value['name'] ) . '</option>';
 	}
 	echo '</select>';
 
 	// Output all the hidden widget forms.
+	// If the Widget does not conform to what we need then we display some info.
 	echo '<div class="isNull"></div>';
 	foreach ( $sort as $i => $value ) {
 		$callback = $value['callback'];
 		if ( is_array( $callback ) ) {
 			$turbo_object = $callback[0];
-			$form_class = $turbo_object->id_base;
+			$widget = new $turbo_object;
+			if ( isset( $turbo_object->id_base ) ) {
+				$form_class = $turbo_object->id_base;
+			} else {
+				$form_class = $value['id'];
+			}
 			echo '<div class="is' . esc_html( $form_class ) . '">';
 			echo '<input type="hidden" id="widget-prefix" name="widget-prefix" value="' . esc_html( $form_class ) . '" />';
 			echo '<input type="hidden" id="obj-class" name="obj-class" value="' . esc_html( get_class( $turbo_object ) ) . '" />';
-			$widget = new $turbo_object;
-			$widget->form( array() );
+			if ( method_exists( $widget, 'form' ) ) {
+				$widget->form( array() );
+			} else { // This widget's admin is not available from the 'form' method, currently unsupported.
+				non_supported_str( $value['name'] );
+			}
+		} else { // This is an old widget.
+			echo '<div class="is' . esc_html( $value['id'] ) . '">';
+			echo '<input type="hidden" id="widget-prefix" name="widget-prefix" value="' . esc_html( $value['id'] ) . '" />';
+			non_supported_str( $value['name'] );
 		}
 		echo '</div>';
 	}
+}
+
+/**
+ * Outputs a "not supported" message for the widget
+ *
+ * @param string $widget_name The human readable name of the widget.
+ */
+function non_supported_str( $widget_name ) {
+	echo '<div class="wp-ui-notification tw-notification"><h2><em>' . esc_html( $widget_name ) . '</em> widget not currently supported, sorry</h2><p>It is likely that this widget does not make use of the <a href="https://codex.wordpress.org/Widgets_API"  target="_blank">documented process for widget creation</a>.</p></div>';
 }
 
 
@@ -62,6 +91,9 @@ function turbo_list_all_widgets() {
 	.current-div input[type=text], .current-div select {  border-spacing: 0; width: 100%;clear: both;margin: 0;}
 	.submit_btn {clear: both;}
 	div#TB_ajaxContent {width: 95% !important; height: 90% !important;}
+	.tw-notification {color: #fff; padding: 1em; margin-top: 0.8em;}
+	.tw-notification h2 {color: #fff;}
+	.tw-notification a {color: #fff; font-style: italic;}
 </style>
 <script>
 	jQuery(document).ready(function(){
@@ -107,6 +139,6 @@ function turbo_list_all_widgets() {
 		</p>
 		</form>
 		<hr />
-		<h3>Rate this plugin</h3><p><a href="http://wordpress.org/support/view/plugin-reviews/turbo-swidgets?rate=5#postform" title="Rate me" target="_BLANK">If you like me, please rate me</a>... or maybe even <a href="http://turbo-widgets.net/donate/" title="Show you love">donate to the author</a>...</p> <p>or perhaps just spread the good word <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wordpress.org/extend/plugins/turbo-widgets/" data-text="Using the Turbo Widgets WordPress plugin and lovin' it" data-via="toddhalfpenny" data-count="none">Tweet</a>
+		<h3>Rate this plugin</h3><p><a href="http://wordpress.org/support/view/plugin-reviews/turbo-widgets?rate=5#postform" title="Rate me" target="_BLANK">If you like me, please rate me</a>... or maybe even <a href="http://turbo-widgets.net/donate/" title="Show you love">donate to the author</a>...</p> <p>or perhaps just spread the good word <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wordpress.org/extend/plugins/turbo-widgets/" data-text="Using the Turbo Widgets WordPress plugin and lovin' it" data-via="toddhalfpenny" data-count="none">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></p>
 </div>

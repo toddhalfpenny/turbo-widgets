@@ -4,7 +4,7 @@ Donate link: http://turbowidgets.net/donate
 Tags: widgets, sidebar, pages, post, shortcode, inline, editor, tinymce
 Requires at least: 2.8
 Tested up to: 4.5.2
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 
 The easiest way to add Widgets to Posts and Pages through the WYSIWYG or shortcodes.
 
@@ -31,6 +31,10 @@ What can you do with this plugin?
 
 Absolutely. Check it out [on our official site](http://turbowidgets.net/docs).
 
+= Why are some widgets unsupported? =
+
+Widgets might be unsupported if the do not extend WP_Widget or do not support standard methods, as per the [codex](https://codex.wordpress.org/Widgets_API). If you really require a particular widget then post in the support board or [Go PRO](turbowidgets.net/go-pro/) to get premium support.
+
 == Screenshots ==
 
 1. Add A Widget button available in the standard WordPress editor
@@ -38,6 +42,12 @@ Absolutely. Check it out [on our official site](http://turbowidgets.net/docs).
 
 
 == Changelog ==
+
+
+= 1.0.4 =
+
+Better Handling of unsupported Widgets; now show notification. Widgets might be unsupported if the do not extend WP_Widget or do not support standard methods (as per codex)
+
 
 = 1.0.3 =
 
