@@ -41,14 +41,19 @@ function turbo_list_all_widgets() {
 	echo '<div class="isNull"></div>';
 	foreach ( $sort as $i => $value ) {
 		$callback = $value['callback'];
+		//print_r($callback);
 		if ( is_array( $callback ) ) {
 			$turbo_object = $callback[0];
-			$form_class = $turbo_object->id_base;
-			echo '<div class="is' . esc_html( $form_class ) . '">';
-			echo '<input type="hidden" id="widget-prefix" name="widget-prefix" value="' . esc_html( $form_class ) . '" />';
-			echo '<input type="hidden" id="obj-class" name="obj-class" value="' . esc_html( get_class( $turbo_object ) ) . '" />';
 			$widget = new $turbo_object;
-			$widget->form( array() );
+				$form_class = $turbo_object->id_base;
+				echo '<div class="is' . esc_html( $form_class ) . '">';
+				echo '<input type="hidden" id="widget-prefix" name="widget-prefix" value="' . esc_html( $form_class ) . '" />';
+				echo '<input type="hidden" id="obj-class" name="obj-class" value="' . esc_html( get_class( $turbo_object ) ) . '" />';
+			if ( method_exists( $widget, 'form')) {
+				$widget->form( array() );
+			} else {
+				echo '<div class="wp-ui-notification tw-notification"><h2>Widget not currently supported, sorry</h2><p>It is likely that this widget does not make use of the <a href="https://codex.wordpress.org/Widgets_API"  target="_blank">documented process for widget creation</a>.</p></div>';
+			}
 		}
 		echo '</div>';
 	}
@@ -62,6 +67,9 @@ function turbo_list_all_widgets() {
 	.current-div input[type=text], .current-div select {  border-spacing: 0; width: 100%;clear: both;margin: 0;}
 	.submit_btn {clear: both;}
 	div#TB_ajaxContent {width: 95% !important; height: 90% !important;}
+	.tw-notification {color: #fff; padding: 1em; margin-top: 0.8em;}
+	.tw-notification h2 {color: #fff;}
+	.tw-notification a {color: #fff; font-style: italic;}
 </style>
 <script>
 	jQuery(document).ready(function(){
