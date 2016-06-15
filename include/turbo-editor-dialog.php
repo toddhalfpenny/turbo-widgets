@@ -120,6 +120,6 @@ function non_supported_str() {
 		</p>
 		</form>
 		<hr />
-		<h3>Rate this plugin</h3><p><a href="http://wordpress.org/support/view/plugin-reviews/turbo-swidgets?rate=5#postform" title="Rate me" target="_BLANK">If you like me, please rate me</a>... or maybe even <a href="http://turbo-widgets.net/donate/" title="Show you love">donate to the author</a>...</p> <p>or perhaps just spread the good word <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wordpress.org/extend/plugins/turbo-widgets/" data-text="Using the Turbo Widgets WordPress plugin and lovin' it" data-via="toddhalfpenny" data-count="none">Tweet</a>
+		<h3>Rate this plugin</h3><p><a href="http://wordpress.org/support/view/plugin-reviews/turbo-widgets?rate=5#postform" title="Rate me" target="_BLANK">If you like me, please rate me</a>... or maybe even <a href="http://turbo-widgets.net/donate/" title="Show you love">donate to the author</a>...</p> <p>or perhaps just spread the good word <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wordpress.org/extend/plugins/turbo-widgets/" data-text="Using the Turbo Widgets WordPress plugin and lovin' it" data-via="toddhalfpenny" data-count="none">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></p>
 </div>
