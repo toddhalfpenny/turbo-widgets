@@ -25,23 +25,21 @@ function turbo_list_all_widgets() {
 	foreach ( $sort as $i => $value ) {
 		$callback = $value['callback'];
 
-		if ( is_array( $callback ) ) {
-			$turbo_object = $callback[0];
-			$select_value = $turbo_object->id_base;
-			$selected = '';
-			if ( $select_value == $turbo_widget_name ) {
-				$selected = 'SELECTED';
-			}
-			echo '<option value="' . esc_html( $select_value ) . '" '. esc_html( $selected ) . '>' . esc_html( $value['name'] ) . '</option>';
+		$turbo_object = $callback[0];
+		$select_value = $turbo_object->id_base;
+		$selected = '';
+		if ( $select_value == $turbo_widget_name ) {
+			$selected = 'SELECTED';
 		}
+		echo '<option value="' . esc_html( $select_value ) . '" '. esc_html( $selected ) . '>' . esc_html( $value['name'] ) . '</option>';
 	}
 	echo '</select>';
 
 	// Output all the hidden widget forms.
+	// If the Widget does not conform to what we need then we display some info.
 	echo '<div class="isNull"></div>';
 	foreach ( $sort as $i => $value ) {
 		$callback = $value['callback'];
-		//print_r($callback);
 		if ( is_array( $callback ) ) {
 			$turbo_object = $callback[0];
 			$widget = new $turbo_object;
@@ -49,14 +47,21 @@ function turbo_list_all_widgets() {
 				echo '<div class="is' . esc_html( $form_class ) . '">';
 				echo '<input type="hidden" id="widget-prefix" name="widget-prefix" value="' . esc_html( $form_class ) . '" />';
 				echo '<input type="hidden" id="obj-class" name="obj-class" value="' . esc_html( get_class( $turbo_object ) ) . '" />';
-			if ( method_exists( $widget, 'form')) {
+			if ( method_exists( $widget, 'form' ) ) {
 				$widget->form( array() );
 			} else {
-				echo '<div class="wp-ui-notification tw-notification"><h2>Widget not currently supported, sorry</h2><p>It is likely that this widget does not make use of the <a href="https://codex.wordpress.org/Widgets_API"  target="_blank">documented process for widget creation</a>.</p></div>';
+				non_supported_str();
 			}
 		}
 		echo '</div>';
 	}
+}
+
+/**
+ * [non_supported_str description]
+ */
+function non_supported_str() {
+	echo '<div class="wp-ui-notification tw-notification"><h2><em>' . esc_html( $widget_name ) . '</em> Widget not currently supported, sorry</h2><p>It is likely that this widget does not make use of the <a href="https://codex.wordpress.org/Widgets_API"  target="_blank">documented process for widget creation</a>.</p></div>';
 }
 
 
