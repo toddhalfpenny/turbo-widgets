@@ -26,7 +26,16 @@ function turbo_list_all_widgets() {
 		$callback = $value['callback'];
 
 		$turbo_object = $callback[0];
-		$select_value = $turbo_object->id_base;
+		if ( is_array( $callback ) ) {
+			$turbo_object = $callback[0];
+			if ( isset( $turbo_object->id_base ) ) {
+				$select_value = $turbo_object->id_base;
+			} else {
+				$select_value = $value['id'];
+			}
+		} else {
+			$select_value = $value['id'];
+		}
 		$selected = '';
 		if ( $select_value == $turbo_widget_name ) {
 			$selected = 'SELECTED';
@@ -43,25 +52,35 @@ function turbo_list_all_widgets() {
 		if ( is_array( $callback ) ) {
 			$turbo_object = $callback[0];
 			$widget = new $turbo_object;
+			if ( isset( $turbo_object->id_base ) ) {
 				$form_class = $turbo_object->id_base;
-				echo '<div class="is' . esc_html( $form_class ) . '">';
-				echo '<input type="hidden" id="widget-prefix" name="widget-prefix" value="' . esc_html( $form_class ) . '" />';
-				echo '<input type="hidden" id="obj-class" name="obj-class" value="' . esc_html( get_class( $turbo_object ) ) . '" />';
+			} else {
+				$form_class = $value['id'];
+			}
+			echo '<div class="is' . esc_html( $form_class ) . '">';
+			echo '<input type="hidden" id="widget-prefix" name="widget-prefix" value="' . esc_html( $form_class ) . '" />';
+			echo '<input type="hidden" id="obj-class" name="obj-class" value="' . esc_html( get_class( $turbo_object ) ) . '" />';
 			if ( method_exists( $widget, 'form' ) ) {
 				$widget->form( array() );
-			} else {
-				non_supported_str();
+			} else { // This widget's admin is not available from the 'form' method, currently unsupported.
+				non_supported_str( $value['name'] );
 			}
+		} else { // This is an old widget.
+			echo '<div class="is' . esc_html( $value['id'] ) . '">';
+			echo '<input type="hidden" id="widget-prefix" name="widget-prefix" value="' . esc_html( $value['id'] ) . '" />';
+			non_supported_str( $value['name'] );
 		}
 		echo '</div>';
 	}
 }
 
 /**
- * [non_supported_str description]
+ * Outputs a "not supported" message for the widget
+ *
+ * @param string $widget_name The human readable name of the widget.
  */
-function non_supported_str() {
-	echo '<div class="wp-ui-notification tw-notification"><h2><em>' . esc_html( $widget_name ) . '</em> Widget not currently supported, sorry</h2><p>It is likely that this widget does not make use of the <a href="https://codex.wordpress.org/Widgets_API"  target="_blank">documented process for widget creation</a>.</p></div>';
+function non_supported_str( $widget_name ) {
+	echo '<div class="wp-ui-notification tw-notification"><h2><em>' . esc_html( $widget_name ) . '</em> widget not currently supported, sorry</h2><p>It is likely that this widget does not make use of the <a href="https://codex.wordpress.org/Widgets_API"  target="_blank">documented process for widget creation</a>.</p></div>';
 }
 
 
